@@ -1,0 +1,49 @@
+version: '3.4'
+
+networks:
+  development:
+    driver: bridge
+
+services:
+
+  api_development:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - development
+    ports:
+      - ${PORT}:${PORT}
+    volumes:
+      - .:/api
+    environment:
+      - DB_HOST=db_development
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - DB_NAME=${DB_NAME}
+      - TYPEORM_MIGRATION=${TYPEORM_MIGRATION}
+      - TYPEORM_ENTITIES=${TYPEORM_ENTITIES}
+      - TYPEORM_MIGRATION_DIR=${TYPEORM_MIGRATION_DIR}
+      - TYPEORM_ENTITIES_DIR=${TYPEORM_ENTITIES_DIR}
+      - BASE_URL=${BASE_URL}
+    depends_on:
+      - db_development
+
+  db_development:
+    build:
+      context: .
+      dockerfile: db.Dockerfile
+    networks:
+      - development
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASS}
+      - DB_PORT=${DB_PORT}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+    ports:
+      - ${DB_PORT}:${DB_PORT}
