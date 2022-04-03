@@ -1,9 +1,9 @@
 import { Request, Response, Router } from 'express';
-// import UserController from './controllers/UserController';
+import UrlAddressController from './controllers/UrlAddressController';
 
 const routes: Router = Router();
 
-// routes Hello
+// routes Health
 routes.get('/health', (_: Request, res: Response): Response<unknown> => {
   const data = {
     uptime: process.uptime(),
@@ -15,6 +15,6 @@ routes.get('/health', (_: Request, res: Response): Response<unknown> => {
 });
 
 // routes User
-// routes.get('/admin', UserController.index);
+routes.post('/encode', UrlAddressController.encode);
 
 export default routes;

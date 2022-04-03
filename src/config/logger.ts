@@ -29,6 +29,21 @@ const serverLogger: Logger = createLogger({
   ],
 });
 
+const urlLogger: Logger = createLogger({
+  levels: config.syslog.levels,
+  defaultMeta: { component: 'url-service' },
+  format: combine(
+    timestamp({
+      format: 'YYYY-MM-DD HH:mm:ss',
+    }),
+    json()
+  ),
+  transports: [
+    new transports.Console(),
+    new transports.File({ filename: 'logs/url-service.log' }),
+  ],
+});
+
 const morganConfig: MorganConfig = {};
 
 if (env === 'production') {
@@ -48,4 +63,4 @@ if (env === 'production') {
   morganConfig.format = 'dev';
 }
 
-export { serverLogger, morganConfig };
+export { serverLogger, urlLogger, morganConfig };

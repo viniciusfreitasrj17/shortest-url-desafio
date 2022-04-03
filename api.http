@@ -2,3 +2,14 @@
 
 ###
 GET http://localhost:3000/health
+
+
+//========================== UrlAddres Routes ======================//
+
+###
+POST http://localhost:3000/encode
+Content-Type: application/json
+
+{
+  "url": "google.com"
+}
