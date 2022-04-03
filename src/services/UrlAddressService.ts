@@ -2,7 +2,7 @@ import { getRepository } from 'typeorm';
 import { nanoid } from 'nanoid';
 import { isUri } from 'valid-url';
 import { BASE_URL } from '../config';
-import { EncodeUrlAddresDto } from '../dto/UrlAddresDto';
+import { DecodeUrlAddresDto, EncodeUrlAddresDto } from '../dto/UrlAddresDto';
 import { UrlAddress } from '../entity/UrlAddress';
 
 class UrlAddresService {
@@ -18,7 +18,17 @@ class UrlAddresService {
     }
 
     if (!isUri(url)) {
-      throw new Error('Invalid origin URL');
+      return 'Invalid original URL';
+    }
+
+    const haveUrl = await getRepository(UrlAddress).findOne({
+      where: {
+        longUrl: url,
+      },
+    });
+
+    if (haveUrl) {
+      return haveUrl.shortUrl;
     }
 
     const urlCode = nanoid(6);
@@ -31,9 +41,37 @@ class UrlAddresService {
       urlCode,
     };
 
-    await getRepository(UrlAddress).save(newUrl);
+    const data = await getRepository(UrlAddress).save(newUrl);
 
-    return shortUrl;
+    return data.shortUrl;
+  }
+
+  public async decode(decodeUrlAddresDto: DecodeUrlAddresDto): Promise<string> {
+    let { url } = decodeUrlAddresDto;
+
+    if (url.search('http') === -1) {
+      url = 'http://'.concat(url);
+    }
+
+    if (!isUri(BASE_URL)) {
+      throw new Error('Invalid base URL');
+    }
+
+    if (!isUri(url)) {
+      return 'Invalid shortened URL';
+    }
+
+    const data = await getRepository(UrlAddress).findOne({
+      where: {
+        shortUrl: url,
+      },
+    });
+
+    if (!data) {
+      return 'Not found URL';
+    }
+
+    return data.longUrl;
   }
 }
 

@@ -11,5 +11,14 @@ POST http://localhost:3000/encode
 Content-Type: application/json
 
 {
-  "url": "google.com"
+  "url": "yahoo.com"
+}
+
+
+###
+POST http://localhost:3000/decode
+Content-Type: application/json
+
+{
+  "url": "http://shortest.dev/KEEt3U"
 }

@@ -16,5 +16,6 @@ routes.get('/health', (_: Request, res: Response): Response<unknown> => {
 
 // routes User
 routes.post('/encode', UrlAddressController.encode);
+routes.post('/decode', UrlAddressController.decode);
 
 export default routes;
