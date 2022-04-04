@@ -12,7 +12,7 @@ POST http://localhost:3000/encode
 Content-Type: application/json
 
 {
-  "url": "yahoo.com"
+  "url": "http://yahoo.com"
 }
 
 
@@ -21,7 +21,7 @@ POST http://localhost:3000/decode
 Content-Type: application/json
 
 {
-  "url": "http://shortest.dev/KEEt3U"
+  "url": "http://short.est/KEEt3U"
 }
 
 //=========================== Production Env ======================//
@@ -38,7 +38,7 @@ POST http://localhost:8080/encode
 Content-Type: application/json
 
 {
-  "url": "yahoo.com"
+  "url": "http://yahoo.com"
 }
 
 
@@ -47,5 +47,5 @@ POST http://localhost:8080/decode
 Content-Type: application/json
 
 {
-  "url": "http://shortest.dev/KEEt3U"
+  "url": "http://short.est/KEEt3U"
 }

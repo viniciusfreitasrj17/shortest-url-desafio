@@ -56,11 +56,14 @@
           "201": {
             "description": "successful operation",
             "schema": {
-              "type": "string"
+              "$ref": "#/definitions/UrlAddressSuccess"
             }
           },
           "400": {
-            "description": "Invalid input"
+            "description": "Invalid input",
+            "schema": {
+              "$ref": "#/definitions/UrlAddressError"
+            }
           }
         }
       }
@@ -86,11 +89,14 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "type": "string"
+              "$ref": "#/definitions/UrlAddressSuccess"
             }
           },
           "400": {
-            "description": "Invalid input"
+            "description": "Invalid input",
+            "schema": {
+              "$ref": "#/definitions/UrlAddressError"
+            }
           }
         }
       }
@@ -106,7 +112,7 @@
         }
       },
       "example": {
-        "url": "google.com"
+        "url": "http://google.com"
       }
     },
     "UrlAddressDecode": {
@@ -118,7 +124,31 @@
         }
       },
       "example": {
-        "url": "shortest.dev/a8BeT4"
+        "url": "http://short.est/a8BeT4"
+      }
+    },
+    "UrlAddressSuccess": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "The return url addres"
+        }
+      },
+      "example": {
+        "url": "http://site.com/suffix"
+      }
+    },
+    "UrlAddressError": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string",
+          "description": "Error return"
+        }
+      },
+      "example": {
+        "error": "Error Example"
       }
     }
   }

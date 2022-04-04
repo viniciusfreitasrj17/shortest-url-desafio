@@ -6,19 +6,15 @@ import { DecodeUrlAddresDto, EncodeUrlAddresDto } from '../dto/UrlAddresDto';
 import { UrlAddress } from '../entity/UrlAddress';
 
 class UrlAddresService {
-  public async encode(encodeUrlAddresDto: EncodeUrlAddresDto): Promise<string> {
-    let { url } = encodeUrlAddresDto;
-
-    if (url.search('http') === -1) {
-      url = 'http://'.concat(url);
-    }
+  public async encode(encodeUrlAddresDto: EncodeUrlAddresDto): Promise<object> {
+    const { url } = encodeUrlAddresDto;
 
     if (!isUri(BASE_URL)) {
       throw new Error('Invalid base URL');
     }
 
     if (!isUri(url)) {
-      return 'Invalid original URL';
+      return { error: 'Invalid original URL' };
     }
 
     const haveUrl = await getRepository(UrlAddress).findOne({
@@ -28,7 +24,7 @@ class UrlAddresService {
     });
 
     if (haveUrl) {
-      return haveUrl.shortUrl;
+      return { url: haveUrl.shortUrl };
     }
 
     const urlCode = nanoid(6);
@@ -43,22 +39,18 @@ class UrlAddresService {
 
     const data = await getRepository(UrlAddress).save(newUrl);
 
-    return data.shortUrl;
+    return { url: data.shortUrl };
   }
 
-  public async decode(decodeUrlAddresDto: DecodeUrlAddresDto): Promise<string> {
-    let { url } = decodeUrlAddresDto;
-
-    if (url.search('http') === -1) {
-      url = 'http://'.concat(url);
-    }
+  public async decode(decodeUrlAddresDto: DecodeUrlAddresDto): Promise<object> {
+    const { url } = decodeUrlAddresDto;
 
     if (!isUri(BASE_URL)) {
       throw new Error('Invalid base URL');
     }
 
     if (!isUri(url)) {
-      return 'Invalid shortened URL';
+      return { error: 'Invalid shortened URL' };
     }
 
     const data = await getRepository(UrlAddress).findOne({
@@ -68,10 +60,10 @@ class UrlAddresService {
     });
 
     if (!data) {
-      return 'Not found URL';
+      return { error: 'Not found URL' };
     }
 
-    return data.longUrl;
+    return { url: data.longUrl };
   }
 }
 
