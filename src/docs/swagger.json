@@ -5,17 +5,14 @@
     "version": "1.0.0",
     "description": "This is the Library API LinkAPI Desafio Tech"
   },
-  "securityDefinitions": {
-    "jwt": {
-      "type": "apiKey",
-      "in": "header",
-      "name": "authorization"
-    }
-  },
   "tags": [
     {
       "name": "Health",
       "description": "Health Live"
+    },
+    {
+      "name": "UrlAddress",
+      "description": "Everything about your UrlAddress"
     }
   ],
   "paths": {
@@ -36,6 +33,92 @@
             "description": "There aren't health"
           }
         }
+      }
+    },
+    "/encode": {
+      "post": {
+        "summary": "Encode a new url addres to the store",
+        "tags": ["UrlAddress"],
+        "description": "Encode a new url addres to the store",
+        "operationId": "addUrlAddress",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "UrlAddress object that needs to be added to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UrlAddressEncode"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/decode": {
+      "post": {
+        "summary": "Decode a url addres to the show",
+        "tags": ["UrlAddress"],
+        "description": "Decode a new url addres to the show",
+        "operationId": "showUrlAddress",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "UrlAddress object that needs to be added to the show",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UrlAddressDecode"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "UrlAddressEncode": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "The url addres"
+        }
+      },
+      "example": {
+        "url": "google.com"
+      }
+    },
+    "UrlAddressDecode": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "The url addres"
+        }
+      },
+      "example": {
+        "url": "shortest.dev/a8BeT4"
       }
     }
   }
