@@ -13,12 +13,12 @@ Objective
 
 ### Rodar em Devenvolvimento
 
-Steps to run this project:
+Passos para rodar esse projeto:
 
-1. Run `yarn` command
-2. Setup database settings inside `.env.development` file
-3. Run `docker exec -it mysql mysql -uroot -proot -e 'create database shortestdb_dev;'` to create database
-4. Run `yarn dev` command
+1. Rode o comando `yarn`
+2. Configure o database pelo arquivo `.env.development`
+3. Rode `docker exec -it mysql mysql -uroot -proot -e 'create database shortestdb_dev;'` para criar o database
+4. Rode o comando `yarn dev`
 
 ### Rodar em Devenvolvimento no Docker Compose
 
