@@ -10,9 +10,7 @@ class UrlAddressController {
       return response.status(201).json(data);
     } catch (error: any) {
       urlLogger.error(error);
-      return response
-        .status(400)
-        .json({ Mensagge: 'Encode Url Addres Failed' });
+      return response.status(400).json({ Error: error.message });
     }
   }
 
@@ -23,9 +21,7 @@ class UrlAddressController {
       return response.status(200).json(data);
     } catch (error: any) {
       urlLogger.error(error);
-      return response
-        .status(400)
-        .json({ Mensagge: 'Decode Url Addres Failed' });
+      return response.status(400).json({ Error: error.message });
     }
   }
 }

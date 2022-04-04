@@ -1,3 +1,7 @@
+export interface UrlAddressDTO {
+  url: string;
+}
+
 export interface EncodeUrlAddresDto {
   url: string;
 }

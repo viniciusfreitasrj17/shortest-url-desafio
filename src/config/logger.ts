@@ -16,11 +16,15 @@ interface MorganConfig<
 
 const serverLogger: Logger = createLogger({
   levels: config.syslog.levels,
+  handleExceptions: true,
+  handleRejections: true,
+  silent: (env === 'test' && true) || false,
   defaultMeta: { component: 'server-service' },
   format: combine(
     timestamp({
       format: 'YYYY-MM-DD HH:mm:ss',
     }),
+    format.errors({ stack: true }),
     json()
   ),
   transports: [
@@ -31,11 +35,15 @@ const serverLogger: Logger = createLogger({
 
 const urlLogger: Logger = createLogger({
   levels: config.syslog.levels,
+  handleExceptions: true,
+  handleRejections: true,
+  silent: (env === 'test' && true) || false,
   defaultMeta: { component: 'url-service' },
   format: combine(
     timestamp({
       format: 'YYYY-MM-DD HH:mm:ss',
     }),
+    format.errors({ stack: true }),
     json()
   ),
   transports: [
