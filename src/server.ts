@@ -1,9 +1,9 @@
-import { createConnection } from 'typeorm';
+import { createDatabaseConn } from './config/conn';
 import app from './app';
 import { portServer } from './config';
 import { serverLogger } from './config/logger';
 
-createConnection()
+createDatabaseConn()
   .then(() => {
     serverLogger.info(`Connected to DB`);
 
