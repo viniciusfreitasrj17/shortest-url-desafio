@@ -4,9 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "typeorm": "NODE_ENV=development node --require ts-node/register ./node_modules/typeorm/cli.js --config ormconfig.js",
+    "typeorm:dev": "NODE_ENV=development node --require ts-node/register ./node_modules/typeorm/cli.js --config ormconfig.js",
     "dev": "NODE_ENV=development node_modules/nodemon/bin/nodemon.js",
-    "predev": "NODE_ENV=development yarn typeorm migration:run"
+    "predev": "NODE_ENV=development yarn typeorm:dev migration:run",
+    "build": "NODE_ENV=production node_modules/typescript/bin/tsc",
+    "typeorm": "NODE_ENV=production node ./node_modules/typeorm/cli.js --config ormconfig.js",
+    "start": "NODE_ENV=production node server.js",
+    "prestart": "NODE_ENV=production npm run typeorm migration:run"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",

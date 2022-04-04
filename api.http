@@ -1,3 +1,4 @@
+//=========================== Development Env ======================//
 //============================ Health Routes =======================//
 
 ###
@@ -17,6 +18,32 @@ Content-Type: application/json
 
 ###
 POST http://localhost:3000/decode
+Content-Type: application/json
+
+{
+  "url": "http://shortest.dev/KEEt3U"
+}
+
+//=========================== Production Env ======================//
+//============================ Health Routes =======================//
+
+###
+GET http://localhost:8080/health
+
+
+//========================== UrlAddres Routes ======================//
+
+###
+POST http://localhost:8080/encode
+Content-Type: application/json
+
+{
+  "url": "yahoo.com"
+}
+
+
+###
+POST http://localhost:8080/decode
 Content-Type: application/json
 
 {

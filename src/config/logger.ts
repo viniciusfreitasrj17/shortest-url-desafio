@@ -47,12 +47,12 @@ const urlLogger: Logger = createLogger({
 const morganConfig: MorganConfig = {};
 
 if (env === 'production') {
-  const logPath = join(__dirname, '..', '..', 'logs');
+  const logPath = join(__dirname, '..', 'logs');
   if (!fs.existsSync(logPath)) {
     fs.mkdirSync(logPath);
   }
   const accessLogStream = fs.createWriteStream(
-    join(__dirname, '..', '..', 'logs', 'accessLogStream.log'),
+    join(__dirname, '..', 'logs', 'accessLogStream.log'),
     { flags: 'a' }
   );
   // log to a file
